@@ -38,8 +38,7 @@ Route::get('paises', function(){
             "poblacion"=> 32.97,
             "ciudades"=>[
                 "Chimbote",
-                "Cusco",
-                "Pucallpa"
+                "Cusco"
             ]
         ],
         "paraguay"=>[
