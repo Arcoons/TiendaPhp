@@ -55,3 +55,7 @@ Route::get('paises', function(){
    //Mostrar vista
    return view('paises')->with("paises", $paises);
 });
+
+Route::get('prueba',function(){
+    return view('productos.new');
+});
