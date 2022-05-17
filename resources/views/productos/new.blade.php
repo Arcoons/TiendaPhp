@@ -6,7 +6,8 @@
     <h1 class="blue-text text-darken-2">Nuevo producto</h1>
 </div>
 <div class="row">
-    <form class="col s8"  method="post" action="">
+    <form class="col s8"  method="post" action="{{route('productos.store')}}">
+        @csrf
     <div class="row">
         <div class="input-field col s8">            
             <input id="nombre" name="nombre" type="text">
@@ -26,6 +27,25 @@
         </div>
     </div>
     <div class="row">
+    <div class="input-field col s8">
+        <select name="marca" id="marca">
+            @foreach($Marca as $marca)
+            <option value="{{$marca->id}}">{{$marca->nombre}}</option>
+            @endforeach                          
+        </select>
+            <label for="marca">Marca</label>
+            </div>
+        </div>
+        <div class="row">  
+        <div class="input-field col s8">               
+            <select name="categoria" id="categoria">
+            @foreach($Categorias as $categoria)
+            <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
+            @endforeach
+            </select>
+            <label for="categoria">Categoria</label>
+        </div>
+    </div>
     <div class="file-field input-field col s8">
       <div class="btn">
         <span>Imagen..</span>
@@ -36,32 +56,11 @@
       </div>
     </div>
     </div>
-    <divp class="row">
-                    <div class="input-field col s8">
-                        <select>
-                            <option value="" disabled selected>Escoje marca</option>
-                            
-                        </select>
-                        <label>Selección de marca</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s8">
-                        <select>
-                            <option value="" disabled selected>Escoje categoría</option>
-
-                        </select>
-                        <label>Selección de categoría</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="s8">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Guardar
-                        </button>
-
-                    </div>
-
-                </div>
+      <div class="row">
+        <div class="s8">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Guardar</button>
+        </div>
+       </div>
     </form>
 </div>
 @endsection
