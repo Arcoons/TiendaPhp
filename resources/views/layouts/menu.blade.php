@@ -1,30 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ asset('materialize/css/materialize.css') }}" rel="stylesheet" />
-    <title>Menu</title>
+  <title>Menu</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('/materialize/css/materialize.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <nav>
-        <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="badges.html">Productos</a></li>
-            <li><a href="collapsible.html">Pedidos</a></li>
-        </ul>
-        </div>
-    </nav>
-        <div class="container">
-             @yield('contenido')
-        </div>
 
-<script src="{{asset('materialize/js/materialize.js')}}"></script>
-<script> document.addEventListener('DOMContentLoaded', function() {
+<nav class="navbar navbar-dark bg-primary">
+  <div class="container-fluid">
+      <p class="navbar-brand" style="font-size: 20px;"> Tienda PHP </p>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Registrar Producto</a></li>
+        <li><a href="#">Productos</a></li>
+        <li><a href="#">Pedidos</a></li>
+        <li><a href="#">Home</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <div class="container">
+        @yield('contenido')
+  </div>
+
+<script src="{{ asset('/materialize/js/materialize.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('select');
     var instances = M.FormSelect.init(elems, []);
-  });</script>
+  });
+</script>
 </body>
 </html>

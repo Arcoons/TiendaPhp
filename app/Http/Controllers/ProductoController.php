@@ -6,6 +6,7 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Marca;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
 {
@@ -16,7 +17,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        echo"Aqui va el catalogo de productos";
+        echo"aquie va a ir el catalogo de productos";
     }
 
     /**
@@ -26,13 +27,10 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //selecionar categorias y marcas
+        //seleccionar categorias y marcas
         $marcas = Marca::all();
         $categorias = Categoria::all();
-
-        return view('productos.new')
-            ->with('Marca', $marcas)
-            ->with('Categorias', $categorias);
+        return view('productos.new')->with('marcas', $marcas)->with('categorias', $categorias);
     }
 
     /**
@@ -43,18 +41,53 @@ class ProductoController extends Controller
      */
     public function store(Request $r)
     {
-        //crear entidad producto
-        $p = new Producto;
-        //asignar valores a los atributos
-        //del nuevo producto
-        $p->nombre = $r->nombre;
-        $p->desc = $r->desc;
-        $p->precio = $r->precio;
-        $p->marca_id = $r->marca;
-        $p->categoria_id = $r->categoria;
-        //grabar el nuevo producto
-        $p->save();
-        echo "Producto guardado";
+        //validar datos
+        $reglas = [
+            "nombre" => 'required|alpha|unique:productos,nombre',
+            "desc" => 'required|min:10|max:50',
+            "precio" => 'required|numeric',
+            "marca" => 'required',
+            "categoria" => 'required',
+            "imagen"=>'required|image'
+        ];
+        //mensajes de error personalizados por regla
+        $mensajes = [
+            "unique"=>"Este nombre ya esta",
+            "required"=>"Campo requerido",
+            "numeric"=>"solo numeros",
+            "alpha"=>"solo letras",
+            "image"=>"Solo archivos tipo imagen"
+        ];
+        //crear objeto validacion
+        $v = Validator::make($r->all(), $reglas, $mensajes);
+        //validar datos: metodo fails()-(retorna true en caso de que falle la validacion y falso en caso de validacion correcta)
+        if($v->fails()){
+            //validacion fallida(mostrar que fallo)-redireccionar al formulario
+            return redirect('producto/create')->withErrors($v)->withInput();
+        }else{
+            //asignar a la variable nombre_archivo
+            $nombre_archivo=$r->imagen->getClientOriginalName();
+            $archivo=$r->imagen;
+            //mover el archivo en la carpeta public
+            $ruta=public_path().'/img';
+            $archivo->move($ruta, $nombre_archivo);
+            //validacion correcta
+            //crear entidad producto
+            $p = new Producto;
+            //asignar valores a los atrbutos del nuevo producto
+            $p->nombre = $r->nombre;
+            $p->desc = $r->desc;
+            $p->precio = $r->precio;
+            
+            $p->marca_id = $r->marca;
+            $p->categoria_id = $r->categoria;
+            $p->imagen = $nombre_archivo;
+            //grabar el nuevo producto
+            $p->save();
+            //redireccionar a la ruta : create"formulario de registro producto", llevando datos de sesion"mensaje de exito"
+            return redirect('producto/create')->with('mensaje', 'Producto registrado');
+        };
+
     }
 
     /**
@@ -65,7 +98,7 @@ class ProductoController extends Controller
      */
     public function show($producto)
     {
-        echo"Aqui va la información del producto, cuyo id es:$producto ";
+        echo "aqui va la informacion del prodcuto cuyo id es: $producto";
     }
 
     /**
@@ -76,7 +109,7 @@ class ProductoController extends Controller
      */
     public function edit($producto)
     {
-        echo"Aqui va formulario de actulización del producto cuyo id es: $producto";
+        echo "aqui va a ir el formulario de edicion del producto cuyo id es: $producto";
     }
 
     /**

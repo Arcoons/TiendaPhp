@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,51 +17,50 @@ use App\Http\Controllers\ProductoController;
 Route::get('/', function () {
     return view('welcome');
 });
-//primera ruta
-//get : es mostrar por el navegador
-Route::get('paises', function(){
+
+//ruta paises 
+Route::get('paises', function () {
     $paises=[
-        "colombia"=>[
-            "capital" =>"Bogotá",
-            "moneda" => "peso",
-            "poblacion"=> 51.6,
+        "Colombia"=>[
+            "capital"=>"Bogota",
+            "moneda"=>"peso",
+            "poblacion"=>51.6,
             "ciudades"=>[
-                "Medellín",
-                "Cali",
-                "Barranquilla",
-                "Cartagena",
-                "Cúcuta"
+                "Medellin",
+                "cali",
+                "Barranquilla"
             ]
         ],
-        "peru"=>[
-            "capital" =>"Limaq",
-            "moneda" => "sol",
-            "poblacion"=> 32.97,
+        "Peru"=>[
+            "capital"=>"Lima",
+            "moneda"=>"Sol",
+            "poblacion"=>32.97,
             "ciudades"=>[
-                "Chimbote",
-                "Cusco"
+                "Lima",
+                "Cusco",
+                "Arequipa"
             ]
         ],
-        "paraguay"=>[
-            "capital" =>"Asunsión",
-            "moneda" => "Guaraní",
-            "poblacion"=> 7.137,
+        "Paraguay"=>[
+            "capital"=>"Asuncion",
+            "moneda"=>"Guaraní paraguayo",
+            "poblacion"=>7.137,
             "ciudades"=>[
-                "Ciudad del Este",
-                "Luque",
-                "San Lorenzo"
+                "Ciudad del este",
+                "Encarnacion",
+                "Paraguarí"
             ]
         ]
     ];
-   //Mostrar vista
-   return view('paises')->with("paises", $paises);
+
+    //mostrar vista de paises 
+    return view('paises')->with("paises", $paises);
+
 });
 
-Route::get('prueba',function(){
+Route::get('prueba', function(){
     return view('productos.new');
 });
-
-//Rutas REST
-//Producto
-
-Route::resource('productos', ProductoController::class);
+//rutas REST
+//producto
+Route::resource('producto', ProductoController::class);
