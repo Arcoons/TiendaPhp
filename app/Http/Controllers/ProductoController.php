@@ -17,7 +17,10 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        echo"aquie va a ir el catalogo de productos";
+      //selecion de todos los productos
+      $productos = Producto::all();
+      //mostrar vista llevando lista de productos
+      return view('productos.index')->with('productos',$productos);
     }
 
     /**
@@ -98,7 +101,10 @@ class ProductoController extends Controller
      */
     public function show($producto)
     {
-        echo "aqui va la informacion del prodcuto cuyo id es: $producto";
+       //seleccionar el producto con id 
+       $producto = Producto::find($producto);
+       //enviar a vista de detalles, llevando el producto seleccionado
+       return \view('productos.details')->with('producto', $producto);
     }
 
     /**
