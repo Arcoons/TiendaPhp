@@ -16,10 +16,9 @@
       <p class="navbar-brand" style="font-size: 20px;"> Tienda PHP </p>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#">Registrar Producto</a></li>
-        <li><a href="#">Productos</a></li>
-        <li><a href="#">Pedidos</a></li>
-        <li><a href="#">Home</a></li>
+        <li><a href="{{route('producto.index')}}">Productos</a></li>
+        <li><a href="{{route('cart.index')}}">Carrito</a></li>
+        <li><a href="{{route('producto.create')}}">Registrar Producto</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
